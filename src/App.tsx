@@ -100,6 +100,13 @@ function App() {
     }
   };
 
+  // Alert user with location and direction of robot
+  const reportRobotStatus = () => {
+    alert(
+      `x position: ${robotPosition.x}. y position: ${robotPosition.y}. direction: ${direction}.`
+    );
+  };
+
   const robotOnTabletop = robotPosition.x !== null;
 
   // Define default styles for movement buttons to avoid code duplication
@@ -107,14 +114,15 @@ function App() {
     "hover:brightness-125 text-white py-2 px-4 rounded disabled:bg-gray-300 disabled:hover:brightness-100";
 
   return (
-    <div className="flex flex-col h-screen w-screen gap-8 justify-center items-center">
+    <div className="flex h-screen w-screen gap-8 justify-center items-center bg-blue-100">
       {/* Grid to hold tabletop and robot */}
       <div
-        className="h-[400px] w-[400px] relative grid"
+        className="relative grid"
         style={{
           gridTemplateRows: `repeat(${CONSTANTS.GridSize}, 1fr)`,
           gridTemplateColumns: `repeat(${CONSTANTS.GridSize}, 1fr)`,
-          height: `${document.getElementById("snake-game")?.offsetWidth}px`,
+          height: `${CONSTANTS.TabletopHeight}px`,
+          width: `${CONSTANTS.TabletopHeight}px`,
         }}
       >
         {/* Tabletop tiles */}
@@ -136,29 +144,45 @@ function App() {
           />
         )}
       </div>
-      {/* Direction and movement buttons */}
-      <div className="flex space-x-2">
+      <div className="flex flex-col gap-4">
+        {/* Direction and movement buttons */}
+        <div className="flex space-x-2">
+          <button
+            className={buttonStyling + " bg-blue-500"}
+            disabled={!robotOnTabletop}
+            onClick={rotateLeft}
+          >
+            Left
+          </button>
+          <button
+            className={buttonStyling + " bg-red-500"}
+            disabled={!robotOnTabletop}
+            onClick={moveRobot}
+          >
+            MOVE
+          </button>
+          <button
+            className={buttonStyling + " bg-blue-500"}
+            disabled={!robotOnTabletop}
+            onClick={rotateRight}
+          >
+            Right
+          </button>
+        </div>
+        {/* Report button to alert user with direction / position of robot */}
         <button
-          className={buttonStyling + " bg-blue-500"}
+          className={buttonStyling + " bg-yellow-500"}
           disabled={!robotOnTabletop}
-          onClick={rotateLeft}
+          onClick={reportRobotStatus}
         >
-          Left
+          Report
         </button>
-        <button
-          className={buttonStyling + " bg-red-500"}
-          disabled={!robotOnTabletop}
-          onClick={moveRobot}
-        >
-          MOVE
-        </button>
-        <button
-          className={buttonStyling + " bg-blue-500"}
-          disabled={!robotOnTabletop}
-          onClick={rotateRight}
-        >
-          Right
-        </button>
+        {/* Display persistent direction / position report using state */}
+        <div className="flex flex-col items-center justify-center border border-blue-500 text-blue-500 rounded bg-white">
+          <p>x: {robotPosition.x === null ? "none" : robotPosition.x}</p>
+          <p>y: {robotPosition.y === null ? "none" : robotPosition.y}</p>
+          <p>direction: {robotOnTabletop ? direction : "none"}</p>
+        </div>
       </div>
     </div>
   );
