@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./index.css";
 import Tabletop from "./tabletop.tsx";
 import * as TYPES from "../types.ts";
@@ -14,6 +14,8 @@ const getRobotRotation = (direction: TYPES.RobotDirection) => {
       return "180";
     case "west":
       return "270";
+    default:
+      throw new Error("Invalid direction");
   }
 };
 
