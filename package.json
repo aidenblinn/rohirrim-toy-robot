@@ -20,7 +20,6 @@
     "@babel/preset-env": "^7.24.6",
     "@babel/preset-react": "^7.24.6",
     "@babel/preset-typescript": "^7.24.6",
-    "@cfaester/enzyme-adapter-react-18": "^0.8.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.0.0",
     "babel-jest": "^29.7.0",
@@ -57,9 +56,6 @@
     "moduleNameMapper": {
       "\\.(css|less|sass|scss)$": "<rootDir>/tests/styleMock.js"
     },
-    "testEnvironment": "jsdom",
-    "setupFilesAfterEnv": [
-      "<rootDir>/tests/setupTests.js"
-    ]
+    "testEnvironment": "jsdom"
   }
 }
