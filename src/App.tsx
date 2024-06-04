@@ -133,6 +133,7 @@ function App() {
         {robotOnTabletop && (
           <img
             className="absolute p-4"
+            data-testid="robot"
             style={{
               "width": `${CONSTANTS.BoxSize}px`,
               top: `${
